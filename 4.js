@@ -24,30 +24,41 @@ console.log("🌍 Global Execution Context Created");
    └───────────────────────────────┘
 */
 
-//call stack maintains the order of execution of execution context
+// 🎭 Hoisting in JavaScript 🤹‍♂️
 
-// Javascript is a synchronous single threaded language
-// which means it can only process one task at a time.
-// However, it can handle multiple tasks efficiently using non-blocking I/O and asynchronous programming
+// 🔹 Hoisting with `var`
+console.log(name); // ❓ Undefined (Hoisted but not initialized)
+var name = "Gaurav";
+console.log(name); // ✅ "Gaurav"
 
-// 4. Asynchronous JavaScript ⏳
+// 🔹 Hoisting with `let` & `const`
+try {
+    console.log(age); // ❌ ReferenceError (TDZ - Cannot access before initialization)
+} catch (error) {
+    console.log("⚠️ ReferenceError: Cannot access 'age' before initialization");
+}
+let age = 20;
+console.log(age); // ✅ 20
 
-// Q1: What is the Event Loop?
-// The Event Loop handles asynchronous operations by managing the execution stack, callback queue, and microtasks.
+// 🔹 Hoisting with Functions
+greet(); // ✅ Works! "Hello, World!"
+function greet() {
+    console.log("Hello, World! 🌍");
+}
 
+// ❌ Hoisting with Function Expressions
+try {
+    greetAgain(); // ❌ TypeError: greetAgain is not a function
+} catch (error) {
+    console.log("⚠️ TypeError: greetAgain is not a function");
+}
 
+var greetAgain = function () {
+    console.log("Hello Again! 🔄");
+};
 
-// Q2: What are Promises in JavaScript?
-// A Promise represents a value that may be available now, in the future, or never.
-//  let promise = new Promise((resolve, reject) => {
-//   if (condition) resolve('Success');
-//   else reject('Error');
-// });
-
-
-// Q3: What is async/await?
-// async functions always return a promise, and await pauses execution until the promise resolves.
-//  async function fetchData() {
-//   let response = await fetch(url);
-//   return response.json();
-// }
+// 📝 Summary:
+// ✅ `var` is hoisted but initialized as `undefined`
+// ✅ Function declarations are fully hoisted
+// 🚫 `let` & `const` remain in **Temporal Dead Zone (TDZ)**
+// ⚠️ Function expressions behave like `var` (hoisted but undefined)
